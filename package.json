@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "better-sqlite3": "^12.8.0",
     "cloudinary": "^2.0.2",
     "eslint-config-next": "^16.2.1",
     "next": "^16.2.1",
