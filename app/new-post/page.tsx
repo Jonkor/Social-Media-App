@@ -1,5 +1,6 @@
 export default function NewPostPage() {
-  function createPost(formData: FormData) {
+  async function createPost(formData: FormData): Promise<void> {
+    "use server";
     const title = formData.get('title') as string;
     const image = formData.get('image') as File;
     const content = formData.get('content') as string;
