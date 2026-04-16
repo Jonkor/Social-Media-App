@@ -1,10 +1,7 @@
-"use client";
-
-import { useActionState } from 'react';
 import { redirect } from "next/navigation";
 
 import { storePost } from "@/lib/posts";
-import FormSubmit from "@/components/form-submit";
+import PostForm from "@/components/post-form";
 
 interface FormState {
   errors?: string[];
@@ -37,41 +34,13 @@ export default function NewPostPage() {
 
     await storePost({
       imageUrl: '',
-      title,
-      content,
+      title: title as string,
+      content: content as string,
       userId: 1
     });
 
     redirect('/feed');
   }
-
-  const [state, formAction] = useActionState<FormState, FormData>(createPost, {});
-
-  return (
-    <>
-      <h1>Create a new post</h1>
-      <form action={formAction}>
-        <p className="form-control">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" />
-        </p>
-        <p className="form-control">
-          <label htmlFor="image">Image</label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            id="image"
-            name="image"
-          />
-        </p>
-        <p className="form-control">
-          <label htmlFor="content">Content</label>
-          <textarea id="content" name="content" rows={5} />
-        </p>
-        <p className="form-actions">
-          <FormSubmit />
-        </p>
-      </form>
-    </>
-  );
+  
+  return <PostForm action={createPost} />
 }
