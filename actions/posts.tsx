@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { storePost } from "@/lib/posts";
+import { uploadImage } from "@/lib/s3";
 
 interface FormState {
   errors?: string[];
@@ -34,8 +35,19 @@ export async function createPost(
     return { errors };
   }
 
+  let imageURL;
+
+  try{
+    imageURL = await uploadImage(image);
+  } catch (error) {
+    throw new Error(
+      "Image upload failed, post was not created. Please try again later.",
+    );    
+  }
+  
+
   await storePost({
-    imageUrl: "",
+    imageUrl: imageURL,
     title: title as string,
     content: content as string,
     userId: 1,
