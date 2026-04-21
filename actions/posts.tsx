@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { storePost } from "@/lib/posts";
+import { storePost, updatePostLikeStatus } from "@/lib/posts";
 import { uploadImage } from "@/lib/s3";
 
 interface FormState {
@@ -54,4 +54,8 @@ export async function createPost(
   });
 
   redirect("/feed");
+}
+
+export async function togglePostLikeStatus(postId: number): Promise<void> {
+  await updatePostLikeStatus(postId, 2);
 }
