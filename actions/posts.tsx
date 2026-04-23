@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { storePost, updatePostLikeStatus } from "@/lib/posts";
@@ -58,4 +59,5 @@ export async function createPost(
 
 export async function togglePostLikeStatus(postId: number): Promise<void> {
   await updatePostLikeStatus(postId, 2);
+  revalidatePath('/', 'layout');
 }
