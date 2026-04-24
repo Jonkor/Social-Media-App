@@ -13,7 +13,7 @@ interface Post {
   userFirstName: string;
   createdAt: string;
   content: string;
-  isLiked: boolean;
+  isLiked: number;
   likes: number; 
 }
 
@@ -68,7 +68,7 @@ export default function Posts({ posts }: PostsProps) {
 
     const updatedPost = { ...prevPosts[updatedPostIndex] };
     updatedPost.likes = updatedPost.likes + (updatedPost.isLiked ? -1 : 1);
-    updatedPost.isLiked = !updatedPost.isLiked;
+    updatedPost.isLiked = updatedPost.isLiked ? 0 : 1;
     const newPosts = [...prevPosts];
     newPosts[updatedPostIndex] = updatedPost;
     return newPosts;
