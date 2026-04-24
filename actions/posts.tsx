@@ -39,7 +39,7 @@ export async function createPost(
   let imageURL;
 
   try{
-    imageURL = await uploadImage(image);
+    imageURL = await uploadImage(image as File);
   } catch (error) {
     throw new Error(
       "Image upload failed, post was not created. Please try again later.",
@@ -54,6 +54,7 @@ export async function createPost(
     userId: 1,
   });
 
+  revalidatePath('/', 'layout');
   redirect("/feed");
 }
 
